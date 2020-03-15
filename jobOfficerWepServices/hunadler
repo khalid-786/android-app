@@ -1,0 +1,76 @@
+public void sendGetRequest(String requestURL){
+	StringBuilder sb = new StringBuilder();
+	try{
+      URL url = new URL(requestURL);
+      HttpURLConnection con = (HttpURLConnection) url.openConnection();
+      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+      String s;
+      while((s= bufferedReader.readLine()) != null){
+           sb.append(s+'/n');
+      }
+	}catch(Exception e){
+
+	}
+
+	return sb.toString();
+}
+
+
+public void sendGetRequestParam(String requestURL , String id){
+	StringBuilder sb = new StringBuilder();
+	try{
+      URL url = new URL(requestURL+id);
+      HttpURLConnection con = (HttpURLConnection) url.openConnection();
+      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+      String s;
+      while((s= bufferedReader.readLine()) != null){
+           sb.append(s+'/n');
+      }
+	}catch(Exception e){
+
+	}
+
+	return sb.toString();
+}
+
+
+private void showUsers(){
+	JSONObject jsonObject = null;
+	ArrayList<HashMap<String , String>> list = new ArrayList<HashMap<String , String> >();
+	try{
+        jsonObject = new JSONObject(JSON_STRING);
+        JSONArray result = jsonObk=ject.getJSONArray(Config.TAG_JSON_ARRAY);
+        for(int i =0 ; i < result.lenght() ; i++){
+            JSONObject ob = result.getJSONObject(i);
+            string id = ob.getString(Config.TAG_ID);
+            String name = ob.getString(Config.TAG_NAME);
+
+            HashMap<String , String> users = new Hashmap<>();
+            users.put(Config.TAG_ID ,id);
+            users.put(Config.TAG_NAME , name);
+            list.add(users);
+        }
+
+	}catch(Exception e){
+ 
+	}
+}
+
+public void getPostDataString(HashMap<String , String> params) throws UnspportedEncodingException{
+	StringBuilder result = new StringBuilder();
+	boolean first = true;
+	for(Map.Entry<String , String> entry:params.entrySet()){
+		    if(first){
+		       first  = false;
+		    }else{
+		       resulte.append("&");
+		    }
+		   result.append(URLEncoder.encode(entry.getKey() , "UTF-8"));
+		   result.append("=");
+		   result.append(URLEncoder.encode(entry.getKey() , "UTF-8"));
+	}
+	return result.toString();
+	
+}
